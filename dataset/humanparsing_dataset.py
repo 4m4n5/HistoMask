@@ -55,10 +55,12 @@ class HumanParsingDataset(BaseDataset):
         self.dataset_size = size
 
     def __getitem__(self, index):
-        import ipdb; ipdb.set_trace()
         # Label Image
         label_path = self.label_paths[index]
         label = Image.open(label_path)
+
+        # Change to unint8 from int32
+        label = Image.fromarray(np.array(label).astype(np.uint8))
 
         flip_p = 0.0
 
