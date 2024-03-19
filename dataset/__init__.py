@@ -39,8 +39,8 @@ def create_dataloader(opt, phase):
         instance,
         batch_size=opt.batch_size,
         shuffle=not opt.serial_batches,
-        # num_workers=int(opt.nThreads),
-        num_workers=1, # NOTE: for debugging
+        num_workers=int(opt.nThreads),
+        # num_workers=1, # NOTE: for debugging
         drop_last=drop_last,
         collate_fn=collate_fn,
     )
