@@ -14,13 +14,13 @@ from dataset.image_folder import make_dataset
 
 from util import util
 
-class HumanParsingDataset(BaseDataset):
+class LizardDataset(BaseDataset):
     @staticmethod
     def modify_commandline_options(parser):
         parser = Pix2pixDataset.modify_commandline_options(parser)
         parser.set_defaults(preprocess_mode='fixed')
         parser.set_defaults(display_winsize=256)
-        parser.set_defaults(label_nc=18) # 17 classs + null
+        parser.set_defaults(label_nc=6+1) # 6 classes + null
         parser.set_defaults(aspect_ratio=1.0)
         opt, _ = parser.parse_known_args()
         if hasattr(opt, 'num_upsampling_layers'):
@@ -55,7 +55,6 @@ class HumanParsingDataset(BaseDataset):
         self.dataset_size = size
 
     def __getitem__(self, index):
-        import ipdb; ipdb.set_trace()
         # Label Image
         label_path = self.label_paths[index]
         label = Image.open(label_path)
@@ -94,18 +93,18 @@ class HumanParsingDataset(BaseDataset):
         phase = 'val' if phase == 'test' else 'train'
  
         # find all images
-        image_dir = os.path.join(root, 'img_deploy')
+        image_dir = os.path.join(root, 'images')
         image_paths = make_dataset(image_dir, recursive=True)
 
         # find all seg_maps
-        label_dir = os.path.join(root, 'seg_deploy')
+        label_dir = os.path.join(root, 'classes')
         label_paths = make_dataset(label_dir, recursive=True)
 
         util.natural_sort(image_paths)
         util.natural_sort(label_paths)
 
         # split them
-        split_ratio = 0.8
+        split_ratio = 0.85
         n_imgs = len(image_paths)
         all_idx = [x for x in range(n_imgs)]
         train_idx = np.random.choice(n_imgs, size=int(n_imgs * split_ratio), replace=False)
@@ -129,11 +128,11 @@ class HumanParsingDataset(BaseDataset):
         phase = 'val' if phase == 'test' else 'train'
  
         # find all images
-        image_dir = os.path.join(root, 'img_deploy')
+        image_dir = os.path.join(root, 'images')
         all_image_paths = make_dataset(image_dir, recursive=True)
 
         # find all seg_maps
-        label_dir = os.path.join(root, 'seg_deploy')
+        label_dir = os.path.join(root, 'classes')
         all_label_paths = make_dataset(label_dir, recursive=True)
 
         util.natural_sort(all_image_paths)

@@ -261,7 +261,7 @@ def uint82bin(n, count=8):
 
 def labelcolormap(N):
     if N == (18 + 2): # human parsing
-        cmap = np.array([(111, 111, 111), # 0 bg
+        cmap = np.array([(111, 111, 111), # 0 bg 
                          (134, 69, 0),    # 1 hat
                          (180, 0, 0),       # 2 hair
                          (0, 0, 0), # 3 sunglass
