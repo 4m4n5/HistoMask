@@ -11,6 +11,8 @@ def get_dataset_class(opt):
         dataset_class = datasetlib.__dict__['CelebAMaskDatasetHQ']
     elif opt.dataset == 'humanparsing':
         dataset_class = datasetlib.__dict__['HumanParsingDataset']
+    elif opt.dataset == 'lizard':
+        dataset_class = datasetlib.__dict__['LizardDataset']
     else:
         raise ValueError('|dataset| invalid')
 

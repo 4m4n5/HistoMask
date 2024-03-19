@@ -282,6 +282,17 @@ def labelcolormap(N):
                          (111, 111, 111), # nothing
                          (111, 111, 111)],  # nothing
                         dtype=np.uint8)
+    if N == (7 + 2):
+        cmap = np.array([[0,0,0],
+                         [0, 0, 255], # Blue
+                         [255, 0, 0], # Red
+                         [255, 128, 0], # Orange
+                         [255, 255, 0], # Yellow
+                         [0, 255, 0], # Green 
+                         [128, 0, 255], # Purple
+                         [111, 111, 111], # nothing
+                         [111, 111, 111]], # nothing
+                        dtype=np.uint8) 
     elif N == (18 + 1 + 2): # celeba
         cmap = np.array([
             (111, 111, 111), # 0
