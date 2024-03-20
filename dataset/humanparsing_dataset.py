@@ -59,9 +59,6 @@ class HumanParsingDataset(BaseDataset):
         label_path = self.label_paths[index]
         label = Image.open(label_path)
 
-        # Change to unint8 from int32
-        label = Image.fromarray(np.array(label).astype(np.uint8))
-
         flip_p = 0.0
 
         transform_label = self.get_transform(self.opt, method=Image.NEAREST, normalize=False, flip_prob=flip_p)
