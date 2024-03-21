@@ -37,6 +37,20 @@ celeba_idx_to_cls = {
 n_celeba_classes = len(celeba_idx_to_cls) + 1 # 18 + null
 celeba_order = [1, 15, 2, 4, 5, 6, 7, 9, 10, 17, 12, 13, 14, 18, 3, 11, 8, 16] # face, hair first --> organ --> acce.
 
+## lizard
+# class dict
+lizard_idx_to_cls = {
+    1: 'neutrophil',
+    2: 'epithelial',
+    3: 'lymphocyte',
+    4: 'plasma',
+    5: 'eosinophil',
+    6: 'connective',
+}
+lizard_cls_to_idx = {v: k for k, v in lizard_idx_to_cls.items()}
+n_lizard_classes = len(lizard_idx_to_cls) + 1 # 6 + null
+lizard_order = [6, 2, 1, 3, 4, 5] # top-down, cell type: connective -> epithelial -> neutrophil -> lymphocyte -> plasma -> eosinophil
+
 ## humanparsing
 humanparsing_idx_to_cls = {
     1: 'hat',

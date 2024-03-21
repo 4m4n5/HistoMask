@@ -16,7 +16,7 @@ import util
 from util.util import is_inf
 from util import labels
 
-order_dict = {'celebamaskhq': labels.celeba_order, 'humanparsing': labels.humanparsing_order}
+order_dict = {'celebamaskhq': labels.celeba_order, 'humanparsing': labels.humanparsing_order, 'lizard': labels.lizard_order}
 
 def normalize(tensor):
     # assum a batch of img tensor, range: 0~1
@@ -71,6 +71,8 @@ class SegVAEModel(torch.nn.Module):
             order_str = [labels.celeba_idx_to_cls[i] for i in self.order]
         elif self.opt.dataset == 'humanparsing':
             order_str = [labels.humanparsing_idx_to_cls[i] for i in self.order]
+        elif self.opt.dataset == 'lizard':
+            order_str = [labels.lizard_idx_to_cls[i] for i in self.order]
         else:
             raise NotImplementedError
 
