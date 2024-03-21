@@ -16,7 +16,7 @@ import util
 from util.util import is_inf
 from util import labels
 
-order_dict = {'celebamaskhq': labels.celeba_order, 'humanparsing': labels.humanparsing_order}
+order_dict = {'celebamaskhq': labels.celeba_order, 'humanparsing': labels.humanparsing_order, 'lizard': labels.lizard_order}
 
 def normalize(tensor):
     # assum a batch of img tensor, range: 0~1
@@ -71,6 +71,8 @@ class SegVAEModel(torch.nn.Module):
             order_str = [labels.celeba_idx_to_cls[i] for i in self.order]
         elif self.opt.dataset == 'humanparsing':
             order_str = [labels.humanparsing_idx_to_cls[i] for i in self.order]
+        elif self.opt.dataset == 'lizard':
+            order_str = [labels.lizard_idx_to_cls[i] for i in self.order]
         else:
             raise NotImplementedError
 
@@ -84,6 +86,8 @@ class SegVAEModel(torch.nn.Module):
             preprocess_method = self.preprocess_celeba_input
         elif self.opt.dataset == 'humanparsing':
             preprocess_method = self.preprocess_humanparsing_input
+        elif self.opt.dataset == 'lizard':
+            preprocess_method = self.preprocess_lizard_input
         else:
             raise NotImplementedError
 
@@ -165,6 +169,33 @@ class SegVAEModel(torch.nn.Module):
         return image, input_semantics, label_set
 
     def preprocess_humanparsing_input(self, data):
+
+        # move to GPU and change data types
+        data['label'] = data['label'].long()
+        if self.use_gpu():
+            data['label'] = data['label'].cuda()
+
+        # normalize
+        image = 0
+
+        # create one-hot label map
+        label_map = data['label']
+        bs, _, h, w = label_map.size()
+        nc = self.opt.label_nc + 1 if self.opt.contain_dontcare_label \
+            else self.opt.label_nc
+
+        input_label = self.FloatTensor(bs, nc, h, w).zero_()
+        input_semantics = input_label.scatter_(1, label_map, 1.0)
+
+        # NOTE: set bg as 0.
+        input_semantics[:, 0] = 0.
+
+        label_set = (input_semantics.view(bs, nc, -1).sum(-1) > 0).float()
+        label_set[:, 0] = 0. # set bg to 0
+
+        return image, input_semantics, label_set
+
+    def preprocess_lizard_input(self, data):
 
         # move to GPU and change data types
         data['label'] = data['label'].long()
