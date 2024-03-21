@@ -82,7 +82,7 @@ class BaseOptions():
 
         ## setting input
         # opt.dataroot will be: data/opt.dataset
-        parser.add_argument('--dataset', type=str, default='celebamaskhq', choices=['humanparsing', 'celebamaskhq'])
+        parser.add_argument('--dataset', type=str, default='celebamaskhq', choices=['humanparsing', 'celebamaskhq', 'lizard'])
         parser.add_argument('--size', type=int, default=128, help="it equals the resolution")
         parser.add_argument('--max_dataset_size', type=int, default=sys.maxsize, help='Maximum number of samples allowed per dataset. If the dataset directory contains more than max_dataset_size, only a subset is loaded.')
         parser.add_argument('--load_from_opt_file', action='store_true', help='load the options from checkpoints and use that as default')
