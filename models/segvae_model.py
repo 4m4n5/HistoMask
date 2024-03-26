@@ -223,6 +223,7 @@ class SegVAEModel(torch.nn.Module):
         return image, input_semantics, label_set
 
     def compute_loss(self, real_image, input_semantics, label_set):
+        import pdb; pdb.set_trace()
         losses = {}
         losses['KLD'] = 0
         losses['recon_shape'] = 0

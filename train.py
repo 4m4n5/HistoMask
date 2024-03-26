@@ -22,11 +22,13 @@ from trainers.segvae_trainer import SegVAETrainer
 # Setup cudnn.benchmark for free speed
 torch.backends.cudnn.benchmark = True
 
+# write latest run command to file
 with open('latest_cmd.txt', 'w') as f:
     cmd = ' '.join(sys.argv) + '\n'
     print(cmd)
     f.write(cmd)
 
+# parse options
 opt = TrainOptions().parse()
 config = vars(opt)
 
