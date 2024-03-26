@@ -107,11 +107,11 @@ class BaseOptions():
         parser.add_argument('--tf_log', action='store_true', help='if specified, use tensorboard logging. Requires tensorflow installed')
 
         # for training
-        parser.add_argument('--niter', type=int, default=900, help='# of iter at starting learning rate. This is NOT the total #epochs. Totla #epochs is niter + niter_decay')
-        parser.add_argument('--niter_decay', type=int, default=300, help='# of iter to linearly decay learning rate to zero')
+        parser.add_argument('--niter', type=int, default=600, help='# of iter at starting learning rate. This is NOT the total #epochs. Totla #epochs is niter + niter_decay')
+        parser.add_argument('--niter_decay', type=int, default=200, help='# of iter to linearly decay learning rate to zero')
         parser.add_argument('--beta1', type=float, default=0.5, help='momentum term of adam')
         parser.add_argument('--beta2', type=float, default=0.999, help='momentum term of adam')
-        parser.add_argument('--lr', type=float, default=2.5e-5, help='initial learning rate for adam.')
+        parser.add_argument('--lr', type=float, default=5e-5, help='initial learning rate for adam.')
 
         parser.add_argument('--use_sn', type=int, default=1, choices=[0, 1], help='use spectral norm or not')
 
@@ -120,7 +120,7 @@ class BaseOptions():
         parser.add_argument('--current_time', default=current_time)
 
         # visualization
-        parser.add_argument('--plot_freq', type=int, default=200)
+        parser.add_argument('--plot_freq', type=int, default=500)
 
         # for debug
         parser.add_argument('--test', action='store_true')

@@ -31,7 +31,7 @@ class TrainOptions(BaseOptions):
 
         parser.add_argument('--z_dim', type=int, default=384, help="dimension of the latent z vector")
 
-        parser.add_argument('--lambda_kl', type=float, default=1e-5, help='weight for kl loss')
+        parser.add_argument('--lambda_kl', type=float, default=1e-6, help='weight for kl loss')
         parser.add_argument('--lambda_shape', type=float, default=1, help='weight for shape loss')
 
         self.isTrain = True
