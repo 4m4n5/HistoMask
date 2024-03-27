@@ -121,6 +121,7 @@ class BaseOptions():
 
         # visualization
         parser.add_argument('--plot_freq', type=int, default=500)
+        parser.add_argument('--wandb_freq', type=int, default=50)
 
         # for debug
         parser.add_argument('--test', action='store_true')

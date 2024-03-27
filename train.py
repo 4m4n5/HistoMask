@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 import random
+import wandb
 from collections import OrderedDict
 from datetime import datetime
 
@@ -53,10 +54,9 @@ else:
     
 # create tool for visualization
 visualizer = Visualizer(opt)
+wandb.init(project='segvae', config=config)
 
 total_steps_so_far = 0
-
-import pdb; pdb.set_trace()
 
 for epoch in range(start_epoch, start_epoch + opt.total_epochs):
 
@@ -85,6 +85,12 @@ for epoch in range(start_epoch, start_epoch + opt.total_epochs):
             visualizer.display_current_results(visuals, epoch, current_step, 'train')
                 
             trainer.log_tensorboard(data_i, current_step, phase='train', mode='visualization')
+        
+        if current_step % opt.wandb_freq == 0:
+            log_dict = {}
+            log_dict['KLD'] = trainer.losses['KLD'].item()
+            log_dict['Recon Error'] = trainer.losses['recon_shape'].item()
+            wandb.log(log_dict, step=current_step)
 
         # testing
         if current_step % opt.plot_freq == 0:

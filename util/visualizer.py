@@ -41,6 +41,7 @@ class Visualizer():
 
     # |visuals|: dictionary of images to display or save
     def display_current_results(self, visuals, epoch, step, phase):
+        import pdb; pdb.set_trace()
 
         ## convert tensors to numpy arrays
         visuals = self.convert_visuals_to_numpy(visuals)
