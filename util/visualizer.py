@@ -58,7 +58,7 @@ class Visualizer():
                     if len(image_numpy.shape) >= 4:
                         image_numpy = image_numpy[0]                    
                     util.save_image(image_numpy, img_path)
-                    wandb.log({label: wandb.Image(img_path)})
+                    wandb.log({label: wandb.Image(img_path)}, step=step)
                 except:
                     print('=> bug in visualizer.py. label: %s' % label)
                     import pdb; pdb.set_trace()
