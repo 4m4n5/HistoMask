@@ -56,6 +56,8 @@ visualizer = Visualizer(opt)
 
 total_steps_so_far = 0
 
+import pdb; pdb.set_trace()
+
 for epoch in range(start_epoch, start_epoch + opt.total_epochs):
 
     for i, data_i in tqdm(enumerate(train_dataloader), total=len(train_dataloader)):
