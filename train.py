@@ -90,7 +90,7 @@ for epoch in range(start_epoch, start_epoch + opt.total_epochs):
             log_dict = {}
             log_dict['KLD'] = trainer.losses['KLD'].item()
             log_dict['Recon Error'] = trainer.losses['recon_shape'].item()
-            log_dict['Learning Rate'] = trainer.optimizer.param_groups[0]['lr']
+            log_dict['Learning Rate'] = trainer.optimizer_shapeE.param_groups[0]['lr']
             wandb.log(log_dict, step=current_step)
 
 
